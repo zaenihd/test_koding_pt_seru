@@ -1,0 +1,30 @@
+name: tes_koding_pt_seru_zaeni_hilman_darmawan
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.1.5 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  image_picker: ^1.0.7
+  image_cropper: ^5.0.1
+  google_ml_kit: ^0.16.3
+  bottom_sheet: ^4.0.0
+  dropdown_search: ^5.0.6
+  photo_view: ^0.14.0
+  get: 4.6.6
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  assets:
+    - assets/image/
+    - assets/icons/
+  uses-material-design: true
+

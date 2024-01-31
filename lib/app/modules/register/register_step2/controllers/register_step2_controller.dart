@@ -205,7 +205,7 @@ class RegisterStep2Controller extends GetxController {
                       ],
                     );
                   }
-                  imageKtpUrl.value = croppedFileSelfieKtp!.path;
+                  imageSelfieKtpUrl.value = croppedFileSelfieKtp!.path;
                   Get.back();
                 },
               )

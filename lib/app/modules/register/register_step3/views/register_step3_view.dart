@@ -1,5 +1,3 @@
-
-
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +22,14 @@ class RegisterStep3View extends GetView<RegisterStep3Controller> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: () {
-            Get.back();
-          }, icon:  Icon(Icons.arrow_back, color: whiteColor,)),
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: whiteColor,
+              )),
           title: Txt(
             text: 'Verifikasi',
             color: whiteColor,
@@ -37,17 +40,27 @@ class RegisterStep3View extends GetView<RegisterStep3Controller> {
             margin: const EdgeInsets.all(20),
             title: "Selesai",
             onPressed: () {
-              showFlexibleBottomSheet(
-                bottomSheetBorderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50)),
-                minHeight: 0,
-                initHeight: 0.8,
-                maxHeight: 0.8,
-                context: context,
-                builder: _buildBottomSheet,
-                isExpand: false,
-              );
+              if (controllerKtp.nikKtp.isEmpty) {
+                var snackBar = const SnackBar(
+                    backgroundColor: Colors.red,
+                    behavior: SnackBarBehavior.floating,
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 80),
+                    elevation: 6.0,
+                    content: Text('Mohon Lengkapi data NIK !'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              } else {
+                showFlexibleBottomSheet(
+                  bottomSheetBorderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50)),
+                  minHeight: 0,
+                  initHeight: 0.8,
+                  maxHeight: 0.8,
+                  context: context,
+                  builder: _buildBottomSheet,
+                  isExpand: false,
+                );
+              }
             },
             color: mainColor),
         body: ListView(
@@ -56,9 +69,7 @@ class RegisterStep3View extends GetView<RegisterStep3Controller> {
             Row(
               children: [
                 SizedBox(width: 100, child: Txt(text: 'Nama')),
-                Txt(
-                    text:
-                        ':  ${controller.dataSendApi['name']}')
+                Txt(text: ':  ${controller.dataSendApi['name']}')
               ],
             ),
             verticalSpace(10),
@@ -88,7 +99,8 @@ class RegisterStep3View extends GetView<RegisterStep3Controller> {
                       visible: controller.isEdit.isFalse,
                       child: InkWell(
                           onTap: () {
-                            controller.nikController.text = controllerKtp.nikKtp.value;
+                            controller.nikController.text =
+                                controllerKtp.nikKtp.value;
                             controller.isEdit.value = true;
                           },
                           child: const Icon(Icons.edit_note_outlined)),
@@ -124,23 +136,19 @@ class RegisterStep3View extends GetView<RegisterStep3Controller> {
               ],
             ),
             verticalSpace(10),
-             Row(
+            Row(
               children: [
                 SizedBox(width: 100, child: Txt(text: 'Foto KTP')),
-                Txt(
-                    text:
-                        ':')
+                Txt(text: ':')
               ],
             ),
             verticalSpace(10),
             imageKtp(),
             verticalSpace(10),
-             Row(
+            Row(
               children: [
                 SizedBox(width: 100, child: Txt(text: 'Foto Selfie KTP')),
-                Txt(
-                    text:
-                        ':')
+                Txt(text: ':')
               ],
             ),
             verticalSpace(10),
@@ -152,76 +160,74 @@ class RegisterStep3View extends GetView<RegisterStep3Controller> {
 
   Cntr imageSelfieKtp() {
     return Cntr(
-            alignment: Alignment.bottomRight,
-            ontap: () {
-              Get.to(
-                  () => FotoView(
-                        imageUrl: controllerKtp.imageSelfieKtpUrl.value,
-                      ),
-                  transition: Transition.fadeIn);
-            },
-            height: 400,
-            width: Get.width,
-            border: Border.all(
-              color: greyColor,
-            ),
-            radius: BorderRadius.circular(10),
-            image: DecorationImage(
-                image: FileImage(controller.dataSendApi['imageSelfieKtp']),
-                fit: BoxFit.cover),
-            child: Cntr(
-              ontap: () {
-                Get.back();
-              },
-              radius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10)),
-              color: Colors.red,
-              height: 40,
-              width: 40,
-              child: Icon(
-                Icons.edit_note_sharp,
-                color: whiteColor,
-              ),
-            ),
-          );
+      alignment: Alignment.bottomRight,
+      ontap: () {
+        Get.to(
+            () => FotoView(
+                  imageUrl: controllerKtp.imageSelfieKtpUrl.value,
+                ),
+            transition: Transition.fadeIn);
+      },
+      height: 400,
+      width: Get.width,
+      border: Border.all(
+        color: greyColor,
+      ),
+      radius: BorderRadius.circular(10),
+      image: DecorationImage(
+          image: FileImage(controller.dataSendApi['imageSelfieKtp']),
+          fit: BoxFit.cover),
+      child: Cntr(
+        ontap: () {
+          Get.back();
+        },
+        radius: const BorderRadius.only(
+            topLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+        color: Colors.red,
+        height: 40,
+        width: 40,
+        child: Icon(
+          Icons.edit_note_sharp,
+          color: whiteColor,
+        ),
+      ),
+    );
   }
 
   Cntr imageKtp() {
     return Cntr(
-            alignment: Alignment.bottomRight,
-            ontap: () {
-              Get.to(
-                  () => FotoView(
-                        imageUrl: controllerKtp.imageKtpUrl.value,
-                      ),
-                  transition: Transition.fadeIn);
-            },
-            height: 200,
-            width: Get.width,
-            border: Border.all(
-              color: greyColor,
-            ),
-            radius: BorderRadius.circular(10),
-            image: DecorationImage(
-                image: FileImage(controller.dataSendApi['imageKtp']),
-                fit: BoxFit.cover),
-            child: Cntr(
-              ontap: () {
-                Get.back();
-              },
-              radius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10)),
-              color: Colors.red,
-              height: 40,
-              width: 40,
-              child: Icon(
-                Icons.edit_note_sharp,
-                color: whiteColor,
-              ),
-            ),
-          );
+      alignment: Alignment.bottomRight,
+      ontap: () {
+        Get.to(
+            () => FotoView(
+                  imageUrl: controllerKtp.imageKtpUrl.value,
+                ),
+            transition: Transition.fadeIn);
+      },
+      height: 200,
+      width: Get.width,
+      border: Border.all(
+        color: greyColor,
+      ),
+      radius: BorderRadius.circular(10),
+      image: DecorationImage(
+          image: FileImage(controller.dataSendApi['imageKtp']),
+          fit: BoxFit.cover),
+      child: Cntr(
+        ontap: () {
+          Get.back();
+        },
+        radius: const BorderRadius.only(
+            topLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+        color: Colors.red,
+        height: 40,
+        width: 40,
+        child: Icon(
+          Icons.edit_note_sharp,
+          color: whiteColor,
+        ),
+      ),
+    );
   }
 
   Widget _buildBottomSheet(

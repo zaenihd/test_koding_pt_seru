@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -174,8 +172,7 @@ class RegisterStep1View extends GetView<RegisterStep1Controller> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: greyColor, width: 2)
-          ),
+          border: Border.all(color: greyColor, width: 2)),
       child: Obx(
         () => DropdownButtonFormField(
           value: controller.isSelectedKota.isTrue
@@ -197,8 +194,7 @@ class RegisterStep1View extends GetView<RegisterStep1Controller> {
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(10))),
-          items: 
-          controller.cityByProvince
+          items: controller.cityByProvince
               .map((e) => DropdownMenuItem(
                   onTap: () {
                     controller.cityId.value = e['city_id'];
